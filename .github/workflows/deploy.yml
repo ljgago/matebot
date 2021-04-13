@@ -6,13 +6,11 @@ on:
 jobs:
   build:
     runs-on: self-hosted
-    env:
-      TAG: $(echo ${GITHUB_SHA} | cut -c1-8)
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
       - name: Build the docker image
-        run: docker build --tag matebot-image:$TAG .
+        run: docker build -t matebot-image:$(echo ${GITHUB_SHA} | cut -c1-8) .
       - name: Stop the current container
         run: docker stop matebot-test
       - name: Remove the current container
@@ -22,15 +20,15 @@ jobs:
           docker run -d \
           --restart always \
           --name matebot-test \
-          -e DISCORD_PREFIX=${{ secrets.DISCORD_PREFIX }} \
-          -e DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }} \
-          -e FAUNADB_SECRET_KEY=${{ secrets.FAUNADB_SECRET_KEY }} \
-          -e EVENTS_CHANNEL_ID=${{ secrets.EVENTS_CHANNEL_ID }} \
-          -e TWITTER_API_KEY=${{ secrets.TWITTER_API_KEYL }}
-          -e TWITTER_API_SECRET=${{ secrets.TWITTER_API_SECRET }}
-          -e TWITTER_ACCESS_KEY=${{ secrets.TWITTER_ACCESS_KEY  }}
-          -e TWITTER_ACCESS_SECRET=${{ secrets.TWITTER_ACCESS_SECRET }}
-          -e TWITTER_USER_ID=${{ secrets.TWITTER_USER_ID }}
-          -e TWITTER_USER_URL=${{ secrets.TWITTER_USER_URL }}
-          -e TWITTER_FILTER=${{ secrets.TWITTER_FILTER }}
-          matebot-image:$TAG
+          -e DISCORD_PREFIX=${{ secrets.DISCORD_PREFIX }}               \
+          -e DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}                 \
+          -e FAUNADB_SECRET_KEY=${{ secrets.FAUNADB_SECRET_KEY }}       \
+          -e EVENTS_CHANNEL_ID=${{ secrets.EVENTS_CHANNEL_ID }}         \
+          -e TWITTER_API_KEY=${{ secrets.TWITTER_API_KEYL }}            \
+          -e TWITTER_API_SECRET=${{ secrets.TWITTER_API_SECRET }}       \
+          -e TWITTER_ACCESS_KEY=${{ secrets.TWITTER_ACCESS_KEY  }}      \
+          -e TWITTER_ACCESS_SECRET=${{ secrets.TWITTER_ACCESS_SECRET }} \
+          -e TWITTER_USER_ID=${{ secrets.TWITTER_USER_ID }}             \
+          -e TWITTER_USER_URL=${{ secrets.TWITTER_USER_URL }}           \
+          -e TWITTER_FILTER=${{ secrets.TWITTER_FILTER }}               \
+          matebot-image:$(echo ${GITHUB_SHA} | cut -c1-8)
