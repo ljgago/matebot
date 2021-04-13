@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: self-hosted
     env:
-      TAG: ${GITHUB_SHA::8}
+      TAG: $(echo ${GITHUB_SHA} | cut -c1-8)
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
