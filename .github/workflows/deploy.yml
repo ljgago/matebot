@@ -25,7 +25,7 @@ jobs:
           -e DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
           -e FAUNADB_SECRET_KEY=${{ secrets.FAUNADB_SECRET_KEY }}
           -e EVENTS_CHANNEL_ID=${{ secrets.EVENTS_CHANNEL_ID }}
-          -e TWITTER_API_KEY=${{ secrets.TWITTER_API_KEYL }}
+          -e TWITTER_API_KEY=${{ secrets.TWITTER_API_KEY }}
           -e TWITTER_API_SECRET=${{ secrets.TWITTER_API_SECRET }}
           -e TWITTER_ACCESS_KEY=${{ secrets.TWITTER_ACCESS_KEY }}
           -e TWITTER_ACCESS_SECRET=${{ secrets.TWITTER_ACCESS_SECRET }}
