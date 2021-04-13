@@ -16,8 +16,5 @@ RUN pip install --upgrade pip
 # Instalo los paquetes de python
 RUN pip install -r requirements.txt
 
-# Elimino dependecias que ya no son necesarias
-RUN apk add --no-cache gcc python3-dev musl-dev libc-dev
-
 # Inicio el bot
 CMD ["python3", "bot.py"]
