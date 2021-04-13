@@ -4,7 +4,7 @@ FROM python:3.8-alpine
 WORKDIR /bot
 
 # Copio requirements.txt y el contenido de src/ en /bot
-COPY requirements.txt .env src/ ./
+COPY requirements.txt src/ ./
 
 # Instalo algunas dependencias porque las necesitan algunos paquetes de python
 RUN apk update \
@@ -15,6 +15,9 @@ RUN pip install --upgrade pip
 
 # Instalo los paquetes de python
 RUN pip install -r requirements.txt
+
+# Elimino dependecias que ya no son necesarias
+RUN apk add --no-cache gcc python3-dev musl-dev libc-dev
 
 # Inicio el bot
 CMD ["python3", "bot.py"]
