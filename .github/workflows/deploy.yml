@@ -12,10 +12,13 @@ jobs:
       - name: Build the docker image
         run: docker build -t matebot-image:$(echo ${GITHUB_SHA} | cut -c1-8) .
       - name: Stop the current container
+        if: always()
         run: docker stop matebot-test
       - name: Remove the current container
+        if: always()
         run: docker rm matebot-test
       - name: Run the new container
+        if: always()
         run: |
           docker run -d \
           --restart always \
