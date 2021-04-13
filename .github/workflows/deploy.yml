@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    run-on: self-hosted:
+    runs-on: self-hosted:
     env:
       TAG: ${GITHUB_SHA::8}
     steps:
