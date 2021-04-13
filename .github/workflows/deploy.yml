@@ -23,13 +23,4 @@ jobs:
           docker run -d --restart always
           -e DISCORD_PREFIX=${{ secrets.DISCORD_PREFIX }}
           -e DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
-          -e FAUNADB_SECRET_KEY=${{ secrets.FAUNADB_SECRET_KEY }}
-          -e EVENTS_CHANNEL_ID=${{ secrets.EVENTS_CHANNEL_ID }}
-          -e TWITTER_API_KEY=${{ secrets.TWITTER_API_KEYL }}
-          -e TWITTER_API_SECRET=${{ secrets.TWITTER_API_SECRET }}
-          -e TWITTER_ACCESS_KEY=${{ secrets.TWITTER_ACCESS_KEY  }}
-          -e TWITTER_ACCESS_SECRET=${{ secrets.TWITTER_ACCESS_SECRET }}
-          -e TWITTER_USER_ID=${{ secrets.TWITTER_USER_ID }}
-          -e TWITTER_USER_URL=${{ secrets.TWITTER_USER_URL }}
-          -e TWITTER_FILTER=${{ secrets.TWITTER_FILTER }}
           --name matebot-test matebot-image:$(echo ${GITHUB_SHA} | cut -c1-8)
