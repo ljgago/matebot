@@ -1,7 +1,8 @@
-name: Self-hosted deploy to docker
+name: Deploy Matebot
 on:
   push:
-    branches: [test-deploy]
+    branches:
+      - test-deploy
 
 jobs:
   build:
@@ -12,10 +13,8 @@ jobs:
       - name: Build the docker image
         run: docker build -t matebot-image:$(echo ${GITHUB_SHA} | cut -c1-8) .
       - name: Stop the current container
-        if: always()
         run: docker stop matebot-test
       - name: Remove the current container
-        if: always()
         run: docker rm matebot-test
       - name: Run the new container
         if: always()
@@ -33,3 +32,5 @@ jobs:
           -e TWITTER_USER_URL=${{ secrets.TWITTER_USER_URL }}
           -e TWITTER_FILTER=${{ secrets.TWITTER_FILTER }}
           --name matebot-test matebot-image:$(echo ${GITHUB_SHA} | cut -c1-8)
+      - name: Remove old docker image
+        run: docker rmi matebot-image:$(git rev-parse HEAD^ | cut -c1-8)
