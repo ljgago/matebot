@@ -13,13 +13,15 @@ jobs:
       - name: Build the docker image
         run: docker build -t matebot-image:$(echo ${GITHUB_SHA} | cut -c1-8) .
       - name: Stop the current container
+        continue-on-error: true
         run: docker stop matebot-test
       - name: Remove the current container
+        continue-on-error: true
         run: docker rm matebot-test
       - name: Remove old docker image
+        continue-on-error: true
         run: docker rmi matebot-image:$(echo ${{ github.event.before }} | cut -c1-8)
       - name: Run the new container
-        if: always()
         run: >
           docker run -d --restart always
           -e DISCORD_PREFIX=${{ secrets.DISCORD_PREFIX }}
