@@ -33,4 +33,4 @@ jobs:
           -e TWITTER_FILTER=${{ secrets.TWITTER_FILTER }}
           --name matebot-test matebot-image:$(echo ${GITHUB_SHA} | cut -c1-8)
       - name: Remove old docker image
-        run: docker rmi matebot-image:$(git rev-parse HEAD^ | cut -c1-8)
+        run: docker rmi matebot-image:$(echo ${{ github.event.before }} | cut -c1-8) .
