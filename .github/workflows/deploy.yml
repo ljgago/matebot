@@ -16,6 +16,8 @@ jobs:
         run: docker stop matebot-test
       - name: Remove the current container
         run: docker rm matebot-test
+      - name: Remove old docker image
+        run: docker rmi matebot-image:$(echo ${{ github.event.before }} | cut -c1-8)
       - name: Run the new container
         if: always()
         run: >
@@ -32,5 +34,3 @@ jobs:
           -e TWITTER_USER_URL=${{ secrets.TWITTER_USER_URL }}
           -e TWITTER_FILTER=${{ secrets.TWITTER_FILTER }}
           --name matebot-test matebot-image:$(echo ${GITHUB_SHA} | cut -c1-8)
-      - name: Remove old docker image
-        run: docker rmi matebot-image:$(echo ${{ github.event.before }} | cut -c1-8)
